@@ -1,0 +1,10 @@
+﻿  MazeSolver.cpp
+C:\Users\ParthaSrinivasan\source\repos\MazeSolver\MazeSolver\ICommand.h(30,41): warning C4101: 'e': unreferenced local variable
+C:\Users\ParthaSrinivasan\source\repos\MazeSolver\MazeSolver\ICommand.h(23): message : while compiling class template member function 'void ICommand<GraphPathFinderInput,GraphPathFinderOutput>::SetData(const std::any &)'
+C:\Users\ParthaSrinivasan\source\repos\MazeSolver\MazeSolver\CommandsManager.h(55): message : see reference to class template instantiation 'ICommand<GraphPathFinderInput,GraphPathFinderOutput>' being compiled
+C:\Users\ParthaSrinivasan\source\repos\MazeSolver\MazeSolver\Init.h(15): message : see reference to function template instantiation 'ICommand<GraphPathFinderInput,GraphPathFinderOutput> *CommandsManager::CreateCommand<GraphPathFinderInput,GraphPathFinderOutput,GraphPathFinderCommandExecutor<GraphPathFinderInput,GraphPathFinderOutput>>(const std::string &,CommandExecutorType &)' being compiled
+          with
+          [
+              CommandExecutorType=GraphPathFinderCommandExecutor<GraphPathFinderInput,GraphPathFinderOutput>
+          ]
+  MazeSolver.vcxproj -> C:\Users\ParthaSrinivasan\source\repos\MazeSolver\x64\Debug\MazeSolver.exe
