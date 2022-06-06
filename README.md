@@ -20,39 +20,39 @@ The maze solver client contains the sample code to run and test.
 The current matrix look as 
 10
 10
-0 0 0 0 1 0 0 0 0 0 
-0 1 1 1 1 1 1 1 1 0
-0 1 0 0 0 1 0 0 1 0 
-0 0 0 1 1 1 1 0 1 0 
-0 1 1 1 0 0 0 0 1 0 
-0 0 0 1 1 1 0 1 1 0
-0 1 0 0 0 1 0 0 0 0 
-0 1 1 1 1 1 0 0 1 0 
-0 0 1 0 0 1 1 1 1 0 
-0 0 0 0 0 0 0 1 0 0 
-
+0 0 0 0 1 0 0 0 0 0   
+0 1 1 1 1 1 1 1 1 0  
+0 1 0 0 0 1 0 0 1 0   
+0 0 0 1 1 1 1 0 1 0   
+0 1 1 1 0 0 0 0 1 0   
+0 0 0 1 1 1 0 1 1 0  
+0 1 0 0 0 1 0 0 0 0   
+0 1 1 1 1 1 0 0 1 0   
+0 0 1 0 0 1 1 1 1 0   
+0 0 0 0 0 0 0 1 0 0  
+  
 The above matrix has 1s where the given problem has white cell and 0 where there is a black cell. THe output from the solver (in the IO stream) is the index of the matrix with index starting from 0 for rows and columns. This matrix can be changed to any input problem.
-
-The design:
-The solution caontains the following patterns
-1. Command ( to run a pre-defined chunk of steps to achieve a specific functionality). The commands are created by CommandsFactory ( Factory pattern) with a singleton pattern. The commands ideally are templated interfaces (input/output types) and are stored in the multiType container. Each command for a particular input and output type is singleton and are queeried by "String" that the commands are referred to.
-2. Each instance of Factory and commands Manager are singleton.
-3. The actual running of the commands' execution are honoured by commands executors. The commands pattern and the executors are highly loosely coupled so that they can vary independently. Example ICommand is implemented by GenericCommand, which is then implemented by GenericCommandImplWrapper, but the executor is set to the Impl wrapper. The design is type safe (static time).
-
-The functionality: 
-1. Depth First Search is implemented by using stack and path (vector).
-2. The Graph is a templated class of GraphNode<Node>. A graph node is a data structure that is used to connect to another graph node, which has flags, children (siblings) etc., The Node is a end user data type which is not used for modification but used only for association. IN this way, I do not pollute the user provided Nodes, that actually form the network. The graphnode is the one that has all mechanism to connect but keeps the Node away.
-
-Usage: 
-  1. Modify the matrix defined in the file maze_1.txt. This is hard coded as the command line argumemnts. Please change the path to the file accordingly.
-  2. Load the MazeSolver.sln in VS2019 and build, with x64 config.
-  3. Run the executable.
   
- Results:
+The design:  
+The solution caontains the following patterns  
+1. Command ( to run a pre-defined chunk of steps to achieve a specific functionality). The commands are created by CommandsFactory ( Factory pattern) with a singleton pattern. The commands ideally are templated interfaces (input/output types) and are stored in the multiType container. Each command for a particular input and output type is singleton and are queeried by "String" that the commands are referred to.  
+2. Each instance of Factory and commands Manager are singleton.  
+3. The actual running of the commands' execution are honoured by commands executors. The commands pattern and the executors are highly loosely coupled so that they can vary independently. Example ICommand is implemented by GenericCommand, which is then implemented by GenericCommandImplWrapper, but the executor is set to the Impl wrapper. The design is type safe (static time).  
+
+The functionality:  
+1. Depth First Search is implemented by using stack and path (vector).  
+2. The Graph is a templated class of GraphNode<Node>. A graph node is a data structure that is used to connect to another graph node, which has flags, children (siblings) etc., The Node is a end user data type which is not used for modification but used only for association. IN this way, I do not pollute the user provided Nodes, that actually form the network. The graphnode is the one that has all mechanism to connect but keeps the Node away.  
   
-  CommandsManager's instance created
-Command : GraphCreationCommand created!
-Command : GraphPathFinderCommand created!
+Usage:  
+  1. Modify the matrix defined in the file maze_1.txt. This is hard coded as the command line argumemnts. Please change the path to the file accordingly.  
+  2. Load the MazeSolver.sln in VS2019 and build, with x64 config.  
+  3. Run the executable.  
+    
+ Results:  
+    
+  CommandsManager's instance created  
+Command : GraphCreationCommand created!  
+Command : GraphPathFinderCommand created!  
 0       0       0       0       1       0       0       0       0       0
 0       1       1       1       1       1       1       1       1       0
 0       1       0       0       0       1       0       0       1       0
