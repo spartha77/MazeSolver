@@ -50,7 +50,7 @@ Usage:
     
  Results:  
     
-  CommandsManager's instance created  
+<pre> CommandsManager's instance created  
 Command : GraphCreationCommand created!  
 Command : GraphPathFinderCommand created!  
 0       0       0       0       1       0       0       0       0       0  
@@ -252,7 +252,7 @@ Path - 1
         8,6  
         8,7  
         9,7  
-  
+ </pre>
   
     
   Feasible solution Path is the solution. The results can be more than 1 but the given problem has only one solution. Either starting from 0,4 or 9,7  
