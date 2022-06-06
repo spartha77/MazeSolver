@@ -53,210 +53,209 @@ Usage:
   CommandsManager's instance created  
 Command : GraphCreationCommand created!  
 Command : GraphPathFinderCommand created!  
-0       0       0       0       1       0       0       0       0       0
-0       1       1       1       1       1       1       1       1       0
-0       1       0       0       0       1       0       0       1       0
-0       0       0       1       1       1       1       0       1       0
-0       1       1       1       0       0       0       0       1       0
-0       0       0       1       1       1       0       1       1       0
-0       1       0       0       0       1       0       0       0       0
-0       1       1       1       1       1       0       0       1       0
-0       0       1       0       0       1       1       1       1       0
-0       0       0       0       0       0       0       1       0       0
-
-Graph Creation command Executed
-ASTAR algorithm in progress
-node    0,4     m_FF    0       m_HH    16      m_EVAL  16
-node    1,4     m_FF    1       m_HH    15      m_EVAL  16
-node    1,5     m_FF    2       m_HH    14      m_EVAL  16
-node    2,5     m_FF    3       m_HH    13      m_EVAL  16
-node    3,5     m_FF    4       m_HH    12      m_EVAL  16
-node    3,4     m_FF    5       m_HH    11      m_EVAL  16
-node    3,3     m_FF    6       m_HH    10      m_EVAL  16
-node    4,3     m_FF    7       m_HH    9       m_EVAL  16
-node    5,3     m_FF    8       m_HH    8       m_EVAL  16
-node    5,4     m_FF    9       m_HH    7       m_EVAL  16
-node    5,5     m_FF    10      m_HH    6       m_EVAL  16
-node    6,5     m_FF    11      m_HH    5       m_EVAL  16
-node    7,5     m_FF    12      m_HH    4       m_EVAL  16
-node    8,5     m_FF    13      m_HH    3       m_EVAL  16
-node    8,6     m_FF    14      m_HH    2       m_EVAL  16
-node    8,7     m_FF    15      m_HH    1       m_EVAL  16
-node    9,7     m_FF    16      m_HH    0       m_EVAL  16
-ASTAR algorithm in ENDED
-
-Graph Path Finder command Executed
-
- Feasible solution Paths in DFS strategy are
-
-Path - 1
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,4
-        3,3
-        4,3
-        5,3
-        5,4
-        5,5
-        6,5
-        7,5
-        8,5
-        8,6
-        8,7
-        9,7
-DFS maze solver algorithm in progress
-
-Graph Path Finder command Executed
-
- All Possible Paths in DFS strategy are
-
-Path - 1
-        0,4
-        1,4
-        1,3
-        1,2
-        1,1
-        2,1
-
-Path - 2
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,4
-        3,3
-        4,3
-        5,3
-        5,4
-        5,5
-        6,5
-        7,5
-        8,5
-        8,6
-        8,7
-        9,7
-
-Path - 3
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,4
-        3,3
-        4,3
-        5,3
-        5,4
-        5,5
-        6,5
-        7,5
-        8,5
-        8,6
-        8,7
-        8,8
-        7,8
-
-Path - 4
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,4
-        3,3
-        4,3
-        5,3
-        5,4
-        5,5
-        6,5
-        7,5
-        7,4
-        7,3
-        7,2
-        8,2
-
-Path - 5
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,4
-        3,3
-        4,3
-        5,3
-        5,4
-        5,5
-        6,5
-        7,5
-        7,4
-        7,3
-        7,2
-        7,1
-        6,1
-
-Path - 6
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,4
-        3,3
-        4,3
-        4,2
-        4,1
-
-Path - 7
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,6
-
-Path - 8
-        0,4
-        1,4
-        1,5
-        1,6
-        1,7
-        1,8
-        2,8
-        3,8
-        4,8
-        5,8
-        5,7
-
- Feasible solution Paths in DFS strategy are
-
-Path - 1
-        0,4
-        1,4
-        1,5
-        2,5
-        3,5
-        3,4
-        3,3
-        4,3
-        5,3
-        5,4
-        5,5
-        6,5
-        7,5
-        8,5
-        8,6
-        8,7
-        9,7
-
-C:\Users\ParthaSrinivasan\source\repos\MazeSolver\x64\Debug\MazeSolver.exe (process 47692) exited with code 0.
-Press any key to close this window . . .
-
+0       0       0       0       1       0       0       0       0       0  
+0       1       1       1       1       1       1       1       1       0  
+0       1       0       0       0       1       0       0       1       0  
+0       0       0       1       1       1       1       0       1       0  
+0       1       1       1       0       0       0       0       1       0  
+0       0       0       1       1       1       0       1       1       0  
+0       1       0       0       0       1       0       0       0       0  
+0       1       1       1       1       1       0       0       1       0  
+0       0       1       0       0       1       1       1       1       0  
+0       0       0       0       0       0       0       1       0       0  
   
-  Feasible solution Path is the solution. The results can be more than 1 but the given problem has only one solution. Either starting from 0,4 or 9,7
+Graph Creation command Executed  
+ASTAR algorithm in progress  
+node    0,4     m_FF    0       m_HH    16      m_EVAL  16  
+node    1,4     m_FF    1       m_HH    15      m_EVAL  16  
+node    1,5     m_FF    2       m_HH    14      m_EVAL  16  
+node    2,5     m_FF    3       m_HH    13      m_EVAL  16  
+node    3,5     m_FF    4       m_HH    12      m_EVAL  16  
+node    3,4     m_FF    5       m_HH    11      m_EVAL  16  
+node    3,3     m_FF    6       m_HH    10      m_EVAL  16  
+node    4,3     m_FF    7       m_HH    9       m_EVAL  16  
+node    5,3     m_FF    8       m_HH    8       m_EVAL  16  
+node    5,4     m_FF    9       m_HH    7       m_EVAL  16  
+node    5,5     m_FF    10      m_HH    6       m_EVAL  16  
+node    6,5     m_FF    11      m_HH    5       m_EVAL  16  
+node    7,5     m_FF    12      m_HH    4       m_EVAL  16  
+node    8,5     m_FF    13      m_HH    3       m_EVAL  16  
+node    8,6     m_FF    14      m_HH    2       m_EVAL  16  
+node    8,7     m_FF    15      m_HH    1       m_EVAL  16  
+node    9,7     m_FF    16      m_HH    0       m_EVAL  16  
+ASTAR algorithm in ENDED  
+  
+Graph Path Finder command Executed  
+
+ Feasible solution Paths in DFS strategy are  
+
+Path - 1  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,4  
+        3,3  
+        4,3  
+        5,3  
+        5,4  
+        5,5  
+        6,5  
+        7,5  
+        8,5  
+        8,6  
+        8,7  
+        9,7  
+DFS maze solver algorithm in progress  
+  
+Graph Path Finder command Executed  
+
+ All Possible Paths in DFS strategy are  
+
+Path - 1  
+        0,4  
+        1,4  
+        1,3  
+        1,2  
+        1,1  
+        2,1  
+  
+Path - 2  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,4  
+        3,3  
+        4,3  
+        5,3  
+        5,4  
+        5,5  
+        6,5  
+        7,5  
+        8,5  
+        8,6  
+        8,7  
+        9,7  
+  
+Path - 3  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,4  
+        3,3  
+        4,3  
+        5,3  
+        5,4  
+        5,5  
+        6,5  
+        7,5  
+        8,5  
+        8,6  
+        8,7  
+        8,8  
+        7,8  
+  
+Path - 4  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,4  
+        3,3  
+        4,3  
+        5,3  
+        5,4  
+        5,5  
+        6,5  
+        7,5  
+        7,4  
+        7,3  
+        7,2  
+        8,2  
+  
+Path - 5  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,4  
+        3,3  
+        4,3  
+        5,3  
+        5,4  
+        5,5  
+        6,5  
+        7,5  
+        7,4  
+        7,3  
+        7,2  
+        7,1  
+        6,1  
+  
+Path - 6  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,4  
+        3,3  
+        4,3  
+        4,2  
+        4,1  
+  
+Path - 7  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,6  
+  
+Path - 8  
+        0,4  
+        1,4  
+        1,5  
+        1,6  
+        1,7  
+        1,8  
+        2,8  
+        3,8  
+        4,8  
+        5,8  
+        5,7  
+  
+ Feasible solution Paths in DFS strategy are  
+
+Path - 1  
+        0,4  
+        1,4  
+        1,5  
+        2,5  
+        3,5  
+        3,4  
+        3,3  
+        4,3  
+        5,3  
+        5,4  
+        5,5  
+        6,5  
+        7,5  
+        8,5  
+        8,6  
+        8,7  
+        9,7  
+  
+  
+    
+  Feasible solution Path is the solution. The results can be more than 1 but the given problem has only one solution. Either starting from 0,4 or 9,7  
+  
   
   
