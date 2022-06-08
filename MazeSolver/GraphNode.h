@@ -69,7 +69,20 @@ public:
     {
         m_PrevGraphNode = prevNode;
     }
-
+    bool isConnectedToSiblings(GraphNode* other)
+    {
+        auto finder = [&other](GraphNode* siblingNode)
+        {
+            if (siblingNode == other)
+                return true;
+            return false;
+            
+        };
+        auto foundIter = std::find_if(this->m_Siblings.begin(), this->m_Siblings.end(), finder);
+        if (foundIter != this->m_Siblings.end())
+            return true;
+        return false;
+    }
     void add2VisitQueue(GraphNode* node)
     {
         m_NodesQueue2Visit.push(node);
@@ -176,7 +189,20 @@ public:
         if (m_HH != std::nullopt )
             m_EvaluatedValue = m_FF.value() + m_HH.value();
     }*/
-
+    bool isSibling(GraphNode* other)
+    {   
+        auto isSame = [&other](GraphNode* siblingNode)
+        {
+            if (siblingNode == other)
+                return true;
+            return false;
+            
+        };
+        auto iter = std::find_if(m_Siblings.begin(), m_Siblings.end(), isSame);
+        if (iter != m_Siblings.end())
+            return true;
+        return false;
+    }
     void resetFF()
     {
         m_FF = std::nullopt;
@@ -297,7 +323,8 @@ public:
             });
 
     }
-    std::vector< std::vector< GraphNode*>> DFS(std::optional<std::function<void(GraphNode*)>> visitor_fn_opt)
+    std::vector< std::vector< GraphNode*>> DFS(std::optional<std::function<void(GraphNode*)>> visitor_fn_opt,
+        std::function<std::vector<GraphNode*>(void)> graphNodesGetter)
     {
         m_NodesStack2Visit = std::stack<GraphNode*>();
         m_NodesStack2Visit.push(this);
@@ -307,10 +334,10 @@ public:
 
         while (m_NodesStack2Visit.size() > 0)
         {
+
             auto& elem = m_NodesStack2Visit.top();
             {
                 // Visit the node here
-                //std::cout << "\nRow ->" << elem->m_Row << "\tCol ->" << elem->m_Col;
                 if (visitor_fn_opt != std::nullopt)
                 {
                     auto visitor_fun = visitor_fn_opt.value();
@@ -358,7 +385,7 @@ public:
                         iter = path.rbegin();
                     }
                     else
-                        iter++;
+                        break;
                 };
             }
 
@@ -371,6 +398,7 @@ public:
                         m_NodesStack2Visit.push(item);
                     }
                 });
+
         }
 
         return m_AllDFSPaths;

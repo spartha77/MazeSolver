@@ -32,8 +32,12 @@ public:
         if (m_InputData.value().m_Strategy == PathFindingSTrategy::NonGreedyASTAR)
         {
             if (m_InputData.value().m_EndNode && m_InputData.value().m_EndNode)
+            {
                 outData.m_AllPaths = outData.m_AllSolutionPaths = NonGreedyASTARStrategyPathFinder::FindPath<GraphNode<Node>, Node>(graph,
-                    std::nullopt, m_InputData.value().m_StartNode, m_InputData.value().m_EndNode);
+                    std::nullopt, m_InputData.value().m_StartNode,
+                    m_InputData.value().m_EndNode,
+                    outData.m_containsCycles);
+            }
             else
                 return false;
 
@@ -42,10 +46,15 @@ public:
         else if (m_InputData.value().m_Strategy == PathFindingSTrategy::DFS)
         {
             if (m_InputData.value().m_StartNode)
+            {
                 DFSStrategyPathSolutionFinder::FindPaths<GraphNode<Node>, Node>(graph, std::nullopt,
                     m_InputData.value().m_StartNode,
                     outData.m_AllPaths,
-                    outData.m_AllSolutionPaths);
+                    outData.m_AllSolutionPaths,
+                    outData.m_containsCycles);
+            }
+            else
+                return false;
         }
         
         

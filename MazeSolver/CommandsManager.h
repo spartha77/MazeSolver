@@ -1,6 +1,4 @@
 #pragma once
-
-#pragma once
 #include <vector>
 #include <memory>
 #include <map>
@@ -13,21 +11,21 @@
 #include "Node.h"
 #include "Graph.h"
 
-using GraphOfGraphNodes = Graph<GraphNode<Node>, Node>;
+//using GraphOfGraphNodes = Graph<GraphNode<Node>, Node>;
 
 class CommandsManager
 {
 private:
     CommandsManager() 
     {
-        m_Graph = std::make_unique<GraphOfGraphNodes>(GraphOfGraphNodes());
+        m_Graph = std::make_unique<Graph<GraphNode<Node>, Node>>(Graph<GraphNode<Node>, Node>());
     }
 
     std::map<std::string, IDirective*> m_CommandsMap;
     MultiVector m_CommandsMultiVector;
 
     inline static std::unique_ptr<CommandsManager> m_CommandsManagerInstance;
-    inline static std::unique_ptr< GraphOfGraphNodes> m_Graph;
+    inline static std::unique_ptr< Graph<GraphNode<Node>, Node>> m_Graph;
 
 public:
     ~CommandsManager() {}
@@ -42,7 +40,7 @@ public:
             });
         return m_CommandsManagerInstance.get();
     }
-    static GraphOfGraphNodes* GetGraph()
+    static Graph<GraphNode<Node>, Node>* GetGraph()
     {
         return GetInstance()->m_Graph.get();
     }

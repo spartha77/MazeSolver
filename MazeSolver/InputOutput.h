@@ -25,7 +25,7 @@ struct GraphPathFinderInput
     std::string m_data = "GraphPathFinderInput";
     GraphNode<Node>* m_StartNode = nullptr;
     GraphNode<Node>* m_EndNode = nullptr;
-    PathFindingSTrategy m_Strategy = PathFindingSTrategy::DFS;
+    PathFindingSTrategy m_Strategy = PathFindingSTrategy::DFS;    
 };
 
 struct GraphPathFinderOutput
@@ -33,6 +33,7 @@ struct GraphPathFinderOutput
     std::string m_data = "GraphPathFinderOutput";
     std::vector<std::vector<GraphNode<Node>*>> m_AllPaths;
     std::vector<std::vector<GraphNode<Node>*>> m_AllSolutionPaths;
+    bool m_containsCycles = false;
 };
 
 

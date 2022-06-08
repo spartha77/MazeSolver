@@ -24,12 +24,14 @@ private:
     std::vector<std::unique_ptr<GraphNodeType>> m_GraphNodes;
     std::vector<std::unique_ptr<NodeType>> m_Nodes;
 
-    int** m_MazeMatrix = nullptr;
+    //int** m_MazeMatrix = nullptr;
+    std::vector<std::vector<int>> m_MazeMatrix;
     int m_Rows = -1, m_Cols = -1;
 
     std::vector< std::vector< GraphNodeType*>> m_AllDFSPaths;
     std::vector< std::vector< GraphNodeType*>> m_AllSolutionPaths;
 
+    bool m_ContainsCycles = false;
     
 
     void createNodes(const int& val, const int& row, const int& col)
@@ -55,7 +57,7 @@ public:
         m_Cols(std::move(rhs.m_Cols))
     {
         m_MazeMatrix = rhs.m_MazeMatrix;
-        rhs.m_MazeMatrix = nullptr;
+        //rhs.m_MazeMatrix = nullptr;
     }
     void printPaths(std::vector<std::vector<GraphNode<Node>*>>& paths)
     {
@@ -71,11 +73,11 @@ public:
     }
     ~Graph()
     {
-        for (int ii = 0; ii < m_Rows; ii++)
+        /*for (int ii = 0; ii < m_Rows; ii++)
         {
             delete[] m_MazeMatrix[ii];
         }
-        delete [] m_MazeMatrix;
+        delete [] m_MazeMatrix;*/
     }
     int GetTotalRows()
     {
@@ -83,7 +85,7 @@ public:
     }
     int GetTotalColumns()
     {
-        return m_Rows;
+        return m_Cols;
     }
     std::vector<GraphNodeType*> GetEndNodes()
     {
@@ -148,14 +150,52 @@ public:
         std::vector< std::vector< GraphNodeType*>> res;
         if (startGraphNode)
         {
-            res = startGraphNode->DFS(visitor_fn_opt);
+            auto graphNodesGetter = [this]()
+            {
+                std::vector<GraphNodeType*> graphNodes;
+                std::for_each(this->m_GraphNodes.begin(), this->m_GraphNodes.end(), [&graphNodes](std::unique_ptr<GraphNodeType>& gnd)
+                    {
+                        graphNodes.push_back(gnd.get());
+                    });
+                return graphNodes;
+            };
+
+            res = startGraphNode->DFS(visitor_fn_opt, graphNodesGetter);
             resetFlag();
         }
         
         //printPaths(res);
         m_AllDFSPaths = res;
+        m_ContainsCycles = containsCycles(m_AllDFSPaths);
+        
         return res;
     }
+
+    bool containsCycles(const std::vector<std::vector<GraphNodeType*>>& paths)
+    {
+        bool containsCycles = false;
+        for (auto pathVec : paths)
+        {
+            int ii = 0;
+            for (int ii = 0; ii < (int)(pathVec.size()) - 2; ii++)
+            {
+                if (pathVec[pathVec.size() - 1]->isConnectedToSiblings(pathVec[ii]))
+                {
+                    containsCycles = true;
+                    break;
+                }
+            }
+            if (containsCycles)
+                break;
+        }
+        return containsCycles;
+    }
+
+    bool containsCycles()
+    {
+        return m_ContainsCycles;
+    }
+    
     std::vector< std::vector< GraphNodeType*>> getAllSolutionPaths(std::vector< std::vector< GraphNodeType*>>& allPaths)
     {
         std::vector< std::vector< GraphNodeType*>> allSolutionPaths;
@@ -185,7 +225,7 @@ public:
             for (int jj = 0; jj < m_Cols; jj++)
             {
                 int val = 1;
-                if (m_MazeMatrix[ii][jj] == 1)
+                if (m_MazeMatrix[jj][ii] == 1)
                 {
                     createNodes(val, ii, jj);
                 }
@@ -193,7 +233,8 @@ public:
         }
     }
     
-    std::vector<GraphNodeType*> findPathUsingNonGreedyASTAR(GraphNodeType *startNode, GraphNodeType *endNode)
+    std::vector<GraphNodeType*> findPathUsingNonGreedyASTAR(GraphNodeType* startNode, GraphNodeType* endNode,
+        bool &containsCycles)
     {
         std::vector<GraphNodeType*> path;
 
@@ -222,9 +263,9 @@ public:
             // This might re-define the m_FF and the previous node
             extractedNode->setMeasureFromSource2Neighbors();
 
-            std::cout << "node\t" << extractedNode->getRow() << "," << extractedNode->getCol() << "\tm_FF\t"
+            /*std::cout << "node\t" << extractedNode->getRow() << "," << extractedNode->getCol() << "\tm_FF\t"
                 << extractedNode->getFF().value() << "\tm_HH\t" << extractedNode->getHH().value() 
-                << "\tm_EVAL\t"<< extractedNode->getEvaluatedValue().value()<<std::endl;
+                << "\tm_EVAL\t"<< extractedNode->getEvaluatedValue().value()<<std::endl;*/
 
             // Lambda function to check if the graphNode does not exist (already) in the closedMinHeap
             auto notExistsInClosedPQ = [&closedMinHeap](GraphNodeType* graphNode)
@@ -253,9 +294,91 @@ public:
         }
 
         path = closedMinHeap.GetElements();
-        std::cout << "ASTAR algorithm in ENDED\n";
-        return path;
+        std::cout << "\nASTAR algorithm  ENDED\n";
+
+        // If the path contained cycles OR if the paths have same evaluated values, this algorithm
+        // returns one of such paths. This algorithm is non-greedy
+        std::for_each(m_GraphNodes.begin(), m_GraphNodes.end(), [](std::unique_ptr<GraphNodeType>& gnd)
+            {
+                gnd->resetFlag();
+            });
+
+        std::vector<std::vector<GraphNodeType*>> allPathsFromAStar;
+        while (path.size() > 0)
+        {
+            std::vector<GraphNodeType*> pathWithoutCycle;
+            int ii = 0;
+            while (ii < path.size() - 1)
+            {
+                int jj = ii + 1;
+                while (jj < path.size())
+                {
+                    if (path[ii]->isConnectedToSiblings(path[jj]))
+                    {
+                        if (ii == 0)
+                        {
+                            pathWithoutCycle.push_back(path[ii]);
+                            path[ii]->setFlag();
+                        }
+                        pathWithoutCycle.push_back(path[jj]);
+                        path[jj]->setFlag();
+                        ii = jj;
+                        break;
+                    }
+                    jj++;
+                }
+            }
+
+            // Remove the nodes set with flag from path
+            auto pathIter = path.begin();
+            while (pathIter != path.end())
+            {
+                if ((*pathIter)->flag())
+                    pathIter = path.erase(pathIter);
+                else
+                    pathIter++;
+            }
+
+            std::for_each(path.begin(), path.end(), [](GraphNodeType* pathNode)
+                {
+                    pathNode->resetFlag();
+                });
+
+            allPathsFromAStar.push_back(pathWithoutCycle);
+        }
+
+        if (m_ContainsCycles == false)
+        {
+            for (int ii = 0; ii < allPathsFromAStar.size() - 1; ii++)
+            {
+                for (int jj = ii + 1; jj < allPathsFromAStar.size(); jj++)
+                {
+                    // Check if the first or last node of "jj" path has sibling in "ii"th path
+                    // If yes, then it is a cycle
+                    for (int kk = 0; kk < allPathsFromAStar[ii].size(); kk++)
+                    {
+                        if (allPathsFromAStar[jj][0]->isSibling(allPathsFromAStar[ii][kk]))
+                        {
+                            m_ContainsCycles = true;
+                            break;
+                        }
+                    }
+                    if (m_ContainsCycles)
+                        break;
+                }
+                if (m_ContainsCycles)
+                    break;
+            }
+        }
+        
+        containsCycles = m_ContainsCycles;
+
+        if (allPathsFromAStar.size() > 0)
+            return allPathsFromAStar[0];
+        else
+            return std::vector<GraphNodeType*>();
     }
+    
     void buildLinks()
     {
         int val = 1;
@@ -333,16 +456,21 @@ public:
         {
             graphMatrixInputFile.open(inputFileFilename.c_str());
             graphMatrixInputFile >> m_Rows >> m_Cols;
-            m_MazeMatrix = new int* [m_Rows];
-            for (int ii = 0; ii < m_Rows; ii++)
+            m_MazeMatrix.resize(m_Cols);
+            std::for_each(m_MazeMatrix.begin(), m_MazeMatrix.end(), [this](std::vector<int>& vec)
+                {
+                    vec.resize(this->m_Rows);
+                });
+            //m_MazeMatrix = new int* [m_Rows];
+            /*for (int ii = 0; ii < m_Rows; ii++)
             {
                 m_MazeMatrix[ii] = new int[m_Cols];
-            }
+            }*/
 
             {
                 int ii = 0;
                 int jj = 0;
-                while (graphMatrixInputFile >> m_MazeMatrix[ii][jj])
+                while (graphMatrixInputFile >> m_MazeMatrix[jj][ii])
                 {
                     jj++;
 
@@ -351,7 +479,7 @@ public:
                         jj = 0;
                         ii++;
 
-                        if (ii == m_Cols)
+                        if (ii == m_Rows)
                             ii = 0;
                     }
                 }
@@ -368,7 +496,7 @@ public:
         {
             for (int jj = 0; jj < m_Cols; jj++)
             {
-                std::cout << m_MazeMatrix[ii][jj] << "\t";
+                std::cout << m_MazeMatrix[jj][ii] << "\t";
             }
             std::cout << std::endl;
         }
