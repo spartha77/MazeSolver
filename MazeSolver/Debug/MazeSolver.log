@@ -1,3 +1,0 @@
-﻿  MazeSolver.cpp
-C:\Users\ParthaSrinivasan\source\repos\MazeSolver\MazeSolver\MazeSolver.cpp(22,28): warning C4930: 'Graph<GraphNode<Node>> graph(std::string [])': prototyped function not called (was a variable definition intended?)
-  MazeSolver.vcxproj -> C:\Users\ParthaSrinivasan\source\repos\MazeSolver\Debug\MazeSolver.exe
