@@ -2,17 +2,11 @@
 #include <vector>
 #include <memory>
 #include <map>
-
-
 #include "IDirective.h"
 #include "CommandsFactory.h"
 #include "MultitypeObjectsContainer.h"
-
 #include "Node.h"
 #include "Graph.h"
-
-//using GraphOfGraphNodes = Graph<GraphNode<Node>, Node>;
-
 class CommandsManager
 {
 private:
@@ -58,9 +52,7 @@ public:
     IDirective* GetCommand(const std::string& commandName)
     {
         if (m_CommandsMap.find(commandName) != m_CommandsMap.end())
-        {
             return m_CommandsMap[commandName];
-        }
         return nullptr;
     }
 
@@ -73,5 +65,3 @@ public:
         return nullptr;
     }
 };
-
-

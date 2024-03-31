@@ -1,9 +1,6 @@
 #pragma once
-
-#pragma once
 #include <string>
 #include "GraphNode.h"
-
 
 enum class PathFindingSTrategy
 {
@@ -18,7 +15,6 @@ struct GraphCreationCommandOutput
     std::vector<GraphNode<Node>*> m_EndNodes;
     Graph<GraphNode<Node>, Node>* m_Graph;
 };
-
 
 struct GraphPathFinderInput
 {
@@ -35,9 +31,3 @@ struct GraphPathFinderOutput
     std::vector<std::vector<GraphNode<Node>*>> m_AllSolutionPaths;
     bool m_containsCycles = false;
 };
-
-
-
-
-
-
